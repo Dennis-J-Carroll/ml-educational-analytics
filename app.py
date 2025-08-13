@@ -66,7 +66,62 @@ class GameAnalytics:
         ''')
         
         conn.commit()
+        
+        # Check if we need to create sample data
+        cursor.execute("SELECT COUNT(*) FROM student_sessions")
+        session_count = cursor.fetchone()[0]
+        
+        if session_count == 0:
+            self._create_sample_data(cursor)
+            conn.commit()
+        
         conn.close()
+    
+    def _create_sample_data(self, cursor):
+        """Create sample data for demo purposes"""
+        import random
+        from datetime import datetime, timedelta
+        
+        # Create sample students and sessions
+        students = [f"student_{i:03d}" for i in range(1, 151)]  # 150 students
+        question_types = ["arithmetic", "algebra", "geometry", "statistics", "calculus"]
+        
+        for i, student in enumerate(students):
+            # Create 1-3 sessions per student
+            num_sessions = random.randint(1, 3)
+            
+            for session_num in range(num_sessions):
+                session_id = f"session_{student}_{session_num}"
+                start_time = (datetime.now() - timedelta(days=random.randint(0, 30))).isoformat()
+                questions_attempted = random.randint(5, 25)
+                correct_answers = random.randint(int(questions_attempted * 0.4), questions_attempted)
+                time_spent = random.randint(300, 1800)  # 5-30 minutes
+                engagement_score = random.uniform(0.3, 1.0)
+                
+                cursor.execute('''
+                    INSERT INTO student_sessions 
+                    (user_id, session_id, start_time, questions_attempted, correct_answers, 
+                     difficulty_level, time_spent_seconds, engagement_score)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                ''', (student, session_id, start_time, questions_attempted, correct_answers,
+                      random.randint(1, 5), time_spent, engagement_score))
+                
+                # Create individual question attempts for this session
+                for q in range(questions_attempted):
+                    question_type = random.choice(question_types)
+                    difficulty = random.randint(1, 5)
+                    time_taken = random.uniform(10, 180)  # 10 seconds to 3 minutes
+                    correct = random.random() < (correct_answers / questions_attempted)
+                    timestamp = (datetime.now() - timedelta(days=random.randint(0, 30))).isoformat()
+                    hints_used = random.randint(0, 3) if not correct else 0
+                    
+                    cursor.execute('''
+                        INSERT INTO question_attempts
+                        (session_id, question_type, difficulty, time_taken_seconds, 
+                         correct, timestamp, hints_used)
+                        VALUES (?, ?, ?, ?, ?, ?, ?)
+                    ''', (session_id, question_type, difficulty, time_taken, 
+                          correct, timestamp, hints_used))
     
     def generate_user_id(self):
         return f"student_{uuid.uuid4().hex[:8]}"
@@ -255,9 +310,10 @@ class EducationalAnalyticsDashboard:
         ).iloc[0]['count']
         
         # Average accuracy
-        avg_accuracy = pd.read_sql_query(
+        accuracy_result = pd.read_sql_query(
             "SELECT AVG(CAST(correct AS FLOAT)) as accuracy FROM question_attempts", conn
         ).iloc[0]['accuracy']
+        avg_accuracy = accuracy_result if accuracy_result is not None else 0.0
         
         # Active learners (last 7 days)
         active_learners = pd.read_sql_query('''
