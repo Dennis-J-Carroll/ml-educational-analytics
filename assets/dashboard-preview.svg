@@ -1,0 +1,61 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="600" height="400" fill="#f8f9fa"/>
+  
+  <!-- Header -->
+  <rect x="0" y="0" width="600" height="60" fill="#1f77b4"/>
+  <text x="20" y="35" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">Educational Analytics Dashboard</text>
+  
+  <!-- Metrics Cards -->
+  <rect x="20" y="80" width="140" height="80" fill="white" stroke="#e9ecef" stroke-width="1" rx="4"/>
+  <text x="30" y="105" font-family="Arial, sans-serif" font-size="12" fill="#6c757d">Students Tracked</text>
+  <text x="30" y="135" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1f77b4">1,247</text>
+  
+  <rect x="180" y="80" width="140" height="80" fill="white" stroke="#e9ecef" stroke-width="1" rx="4"/>
+  <text x="190" y="105" font-family="Arial, sans-serif" font-size="12" fill="#6c757d">At-Risk Students</text>
+  <text x="190" y="135" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#d62728">23</text>
+  
+  <rect x="340" y="80" width="140" height="80" fill="white" stroke="#e9ecef" stroke-width="1" rx="4"/>
+  <text x="350" y="105" font-family="Arial, sans-serif" font-size="12" fill="#6c757d">Avg Performance</text>
+  <text x="350" y="135" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2ca02c">82.5%</text>
+  
+  <rect x="500" y="80" width="80" height="80" fill="white" stroke="#e9ecef" stroke-width="1" rx="4"/>
+  <text x="510" y="105" font-family="Arial, sans-serif" font-size="12" fill="#6c757d">Trend</text>
+  <text x="520" y="135" font-family="Arial, sans-serif" font-size="20" fill="#2ca02c">↗ +5%</text>
+  
+  <!-- Performance Chart Area -->
+  <rect x="20" y="180" width="360" height="200" fill="white" stroke="#e9ecef" stroke-width="1" rx="4"/>
+  <text x="30" y="205" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Student Performance Trends</text>
+  
+  <!-- Mock Chart Lines -->
+  <polyline points="40,340 80,320 120,310 160,300 200,280 240,270 280,260 320,250 360,240" 
+            fill="none" stroke="#1f77b4" stroke-width="2"/>
+  <polyline points="40,360 80,350 120,345 160,340 200,330 240,325 280,320 320,315 360,310" 
+            fill="none" stroke="#ff7f0e" stroke-width="2"/>
+  
+  <!-- Legend -->
+  <rect x="40" y="220" width="12" height="2" fill="#1f77b4"/>
+  <text x="60" y="227" font-family="Arial, sans-serif" font-size="10" fill="#333">Overall Performance</text>
+  <rect x="40" y="235" width="12" height="2" fill="#ff7f0e"/>
+  <text x="60" y="242" font-family="Arial, sans-serif" font-size="10" fill="#333">At-Risk Students</text>
+  
+  <!-- Risk Prediction Panel -->
+  <rect x="400" y="180" width="180" height="200" fill="white" stroke="#e9ecef" stroke-width="1" rx="4"/>
+  <text x="410" y="205" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Risk Predictions</text>
+  
+  <!-- Risk Items -->
+  <rect x="410" y="220" width="160" height="30" fill="#ffebee" stroke="#ef5350" stroke-width="1" rx="2"/>
+  <text x="415" y="235" font-family="Arial, sans-serif" font-size="10" fill="#d32f2f">High Risk: Sarah M.</text>
+  <text x="415" y="245" font-family="Arial, sans-serif" font-size="9" fill="#666">7-day prediction: 85% risk</text>
+  
+  <rect x="410" y="260" width="160" height="30" fill="#fff3e0" stroke="#ff9800" stroke-width="1" rx="2"/>
+  <text x="415" y="275" font-family="Arial, sans-serif" font-size="10" fill="#f57c00">Medium Risk: John D.</text>
+  <text x="415" y="285" font-family="Arial, sans-serif" font-size="9" fill="#666">7-day prediction: 65% risk</text>
+  
+  <rect x="410" y="300" width="160" height="30" fill="#e8f5e8" stroke="#4caf50" stroke-width="1" rx="2"/>
+  <text x="415" y="315" font-family="Arial, sans-serif" font-size="10" fill="#388e3c">Low Risk: Emily R.</text>
+  <text x="415" y="325" font-family="Arial, sans-serif" font-size="9" fill="#666">7-day prediction: 15% risk</text>
+  
+  <!-- Watermark -->
+  <text x="480" y="395" font-family="Arial, sans-serif" font-size="8" fill="#adb5bd">Educational Analytics Dashboard Preview</text>
+</svg>
