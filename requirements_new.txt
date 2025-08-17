@@ -1,40 +1,6 @@
-# Educational Analytics Dashboard - Production Dependencies
-# Core framework and UI
 streamlit>=1.28.0
 pandas>=2.0.0
 numpy>=1.24.0
-
-# Machine Learning and Analytics
 scikit-learn>=1.3.0
-joblib>=1.3.0
-
-# Data Visualization
 plotly>=5.15.0
-
-# Database
-sqlite3
-
-# Utilities
 python-dotenv>=1.0.0
-pathlib2>=2.3.0
-
-# Development Dependencies (optional)
-pytest>=7.4.0
-pytest-cov>=4.1.0
-black>=23.7.0
-flake8>=6.0.0
-mypy>=1.5.0
-
-# Security (optional)
-cryptography>=41.0.0
-
-# Performance (optional)
-numba>=0.57.0
-
-# Documentation (optional)
-sphinx>=7.1.0
-sphinx-rtd-theme>=1.3.0
-
-# Deployment (optional)
-gunicorn>=21.2.0
-docker>=6.1.0
