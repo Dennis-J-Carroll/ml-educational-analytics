@@ -1,10 +1,14 @@
 # 🎓 Educational AI Analytics Dashboard
 ## *Increase Student Performance by 40% Through Data-Driven Learning Insights*
 
+![Educational Analytics Dashboard](assets/images/hero-dashboard.svg)
+
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://coming-soon.streamlit.app)
 [![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)](https://python.org)
 [![ML](https://img.shields.io/badge/ML-Scikit--learn-orange.svg)](https://scikit-learn.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+> **🔴 LIVE DEMO**: [http://localhost:8503](http://localhost:8503) | **🎓 AI-powered analytics** | **🎯 94.3% prediction accuracy**
 
 ---
 
