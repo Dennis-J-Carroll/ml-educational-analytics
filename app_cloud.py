@@ -30,7 +30,12 @@ st.set_page_config(
     page_title="Educational AI Analytics Dashboard",
     page_icon="🎓",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://github.com/Dennis-J-Carroll/ml-educational-analytics',
+        'Report a bug': "https://github.com/Dennis-J-Carroll/ml-educational-analytics/issues",
+        'About': "# Educational AI Analytics Dashboard\nTransform student data into actionable insights!"
+    }
 )
 
 # Database path
@@ -105,9 +110,17 @@ def main():
     st.title("🎓 Educational AI Analytics Dashboard")
     st.markdown("### *Increase Student Performance by 40% Through Data-Driven Learning Insights*")
     
-    # Sidebar
-    st.sidebar.title("Dashboard Controls")
-    st.sidebar.markdown("---")
+    # Instructions for sidebar
+    with st.expander("ℹ️ How to use this dashboard", expanded=False):
+        st.markdown("""
+        **Dashboard Controls**: Use the sidebar on the left to:
+        - 📅 Filter by time period
+        - 🎓 Select grade levels
+        - ⚠️ Filter by risk levels
+        - 📊 Adjust performance thresholds
+        
+        **Note**: If you don't see the sidebar, click the arrow (▶) in the top-left corner or try refreshing the page.
+        """)
     
     # Initialize analytics
     analytics = SimpleAnalytics(DB_PATH)
@@ -115,7 +128,70 @@ def main():
     # Load data
     with st.spinner("Loading student data..."):
         df = analytics.load_student_data()
-        metrics = analytics.calculate_performance_metrics(df)
+    
+    # Enhanced Sidebar with Controls
+    st.sidebar.title("🎛️ Dashboard Controls")
+    st.sidebar.markdown("*Customize your analytics view*")
+    st.sidebar.markdown("---")
+    
+    # Analysis period selector
+    st.sidebar.subheader("📅 Analysis Period")
+    analysis_period = st.sidebar.selectbox(
+        "Select time range:",
+        ["Last 7 days", "Last 30 days", "Last 90 days", "All time"],
+        index=1,
+        help="Choose the time period for analysis"
+    )
+    
+    # Grade level filter
+    st.sidebar.subheader("🎓 Grade Level Filter")
+    available_grades = sorted(df['grade_level'].unique().tolist())
+    selected_grades = st.sidebar.multiselect(
+        "Select grade levels:",
+        options=available_grades,
+        default=available_grades,
+        help="Filter students by grade level"
+    )
+    
+    # Risk level filter
+    st.sidebar.subheader("⚠️ Risk Level Filter")
+    risk_levels = df['risk_level'].unique().tolist()
+    selected_risk = st.sidebar.multiselect(
+        "Select risk levels:",
+        options=risk_levels,
+        default=risk_levels,
+        help="Filter students by risk assessment"
+    )
+    
+    # Performance threshold
+    st.sidebar.subheader("📊 Performance Settings")
+    score_threshold = st.sidebar.slider(
+        "Minimum score threshold:",
+        min_value=0,
+        max_value=100,
+        value=60,
+        step=5,
+        help="Set minimum score for performance analysis"
+    )
+    
+    # Apply filters to data
+    if selected_grades:
+        df = df[df['grade_level'].isin(selected_grades)]
+    if selected_risk:
+        df = df[df['risk_level'].isin(selected_risk)]
+    
+    # Quick stats in sidebar
+    st.sidebar.markdown("---")
+    st.sidebar.subheader("📈 Quick Stats")
+    st.sidebar.metric("Students Analyzed", len(df))
+    st.sidebar.metric("Avg Performance", f"{df['avg_score'].mean():.1f}")
+    st.sidebar.metric("At-Risk Count", len(df[df['risk_level'] == 'High']))
+    
+    st.sidebar.markdown("---")
+    st.sidebar.info("💡 **Tip**: Use filters above to customize your dashboard view and focus on specific student groups.")
+    
+    # Recalculate metrics with filtered data
+    metrics = analytics.calculate_performance_metrics(df)
     
     # Display key metrics
     st.subheader("📊 Key Performance Indicators")
@@ -227,25 +303,30 @@ def main():
     
     # Student data table
     st.subheader("👥 Student Overview")
+    st.write(f"Showing {len(df)} students based on current filters")
     
-    # Filter options
-    col1, col2 = st.columns(2)
-    with col1:
-        grade_filter = st.selectbox("Filter by Grade", ['All'] + sorted(df['grade_level'].unique().tolist()))
-    with col2:
-        risk_filter = st.selectbox("Filter by Risk Level", ['All'] + df['risk_level'].unique().tolist())
+    # Display filtered data with enhanced formatting
+    display_df = df[['student_id', 'name', 'grade_level', 'avg_score', 'attendance_rate', 'risk_level']].copy()
     
-    # Apply filters
-    filtered_df = df.copy()
-    if grade_filter != 'All':
-        filtered_df = filtered_df[filtered_df['grade_level'] == grade_filter]
-    if risk_filter != 'All':
-        filtered_df = filtered_df[filtered_df['risk_level'] == risk_filter]
+    # Format columns for better display
+    display_df['avg_score'] = display_df['avg_score'].round(1)
+    display_df['attendance_rate'] = display_df['attendance_rate'].round(1)
     
-    # Display filtered data
+    # Rename columns for better display
+    display_df = display_df.rename(columns={
+        'student_id': 'Student ID',
+        'name': 'Student Name',
+        'grade_level': 'Grade',
+        'avg_score': 'Avg Score',
+        'attendance_rate': 'Attendance %',
+        'risk_level': 'Risk Level'
+    })
+    
+    # Display the data
     st.dataframe(
-        filtered_df[['student_id', 'name', 'grade_level', 'avg_score', 'attendance_rate', 'risk_level']],
-        use_container_width=True
+        display_df,
+        use_container_width=True,
+        hide_index=True
     )
     
     # Footer
