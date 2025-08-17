@@ -33,7 +33,7 @@
 <td width="50%">
 
 ### 🚀 **Try It Live**
-**[→ Launch Demo Application](https://educational-analytics.streamlit.app)**  
+**[→ Launch Demo Application](https://ml-educational-analytics.streamlit.app/)**  
 *No signup required • Sample data included*
 
 **[📹 Watch 2-Minute Demo](https://youtube.com/demo-link)**  
