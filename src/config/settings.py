@@ -125,17 +125,26 @@ class Config:
             '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
         )
         
+        # Create logs directory if it doesn't exist
+        logs_dir = self.project_root / 'logs'
+        logs_dir.mkdir(exist_ok=True)
+        
+        # Setup logging handlers
+        handlers = [logging.StreamHandler()]
+        
+        # Only add file handler if we can write to the logs directory
+        try:
+            log_file = logs_dir / 'app.log'
+            handlers.append(logging.FileHandler(log_file))
+        except (PermissionError, OSError):
+            # Fall back to console logging only (useful for cloud deployments)
+            pass
+        
         logging.basicConfig(
             level=getattr(logging, log_level),
             format=log_format,
-            handlers=[
-                logging.StreamHandler(),
-                logging.FileHandler(self.project_root / 'logs' / 'app.log')
-            ]
+            handlers=handlers
         )
-        
-        # Create logs directory if it doesn't exist
-        (self.project_root / 'logs').mkdir(exist_ok=True)
     
     @property
     def is_production(self) -> bool:
