@@ -8,7 +8,7 @@
 [![ML](https://img.shields.io/badge/ML-Scikit--learn-orange.svg)](https://scikit-learn.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-> **🔴 LIVE DEMO**: [http://localhost:8503](http://localhost:8503) | **🎓 AI-powered analytics** | **🎯 94.3% prediction accuracy**
+> | **🎓 AI-powered analytics** | **🎯 94.3% prediction accuracy**
 
 ---
 
