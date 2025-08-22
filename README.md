@@ -14,7 +14,7 @@
 
 ## 💼 **BUSINESS IMPACT**
 
-**🎯 Problem Solved**: Educational institutions struggle to identify at-risk students and optimize learning paths, leading to 30% higher dropout rates and $50K+ in lost revenue per student.
+**Problem Solved**: Educational institutions struggle to identify at-risk students and optimize learning paths, leading to 30% higher dropout rates and $50K+ in lost revenue per student.
 
 **💡 Solution Delivered**: AI-powered analytics platform that provides real-time insights into student engagement, predicts learning outcomes, and recommends personalized interventions.
 
@@ -25,19 +25,6 @@
 - **Reduced dropout rates** by 25% = $12.5K saved per student
 
 ---
-
-## 🌐 **LIVE DEMO & VIDEO**
-
-<table>
-<tr>
-<td width="50%">
-
-### 🚀 **Try It Live**
-**[→ Launch Demo Application](https://ml-educational-analytics.streamlit.app/)**  
-*No signup required • Sample data included*
-
-**[📹 Watch 2-Minute Demo](https://youtube.com/demo-link)**  
-*See the impact in action*
 
 </td>
 <td width="50%">
